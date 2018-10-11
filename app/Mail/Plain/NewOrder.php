@@ -11,14 +11,16 @@ class NewOrder extends Mailable
 {
     use Queueable, SerializesModels;
     public $order_id;
+    public $event;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($order_id)
+    public function __construct($order_id, $event)
     {
         $this->order_id = $order_id;
+        $this->event = $event;
     }
 
     /**
@@ -28,6 +30,6 @@ class NewOrder extends Mailable
      */
     public function build()
     {
-        return $this->subject('Событие new_order')->view('emails.plain.new_order');
+        return $this->subject('Событие ' . $this->event)->view('emails.plain.new_order');
     }
 }

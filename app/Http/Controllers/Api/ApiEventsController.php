@@ -14,15 +14,6 @@ class ApiEventsController extends Controller
      */
     public function __invoke(Request $request, $event)
     {
-        switch ($event) {
-            case 'new_order':
-                $answer = new NewOrderController;
-                return $answer($request);
-                break;
-            
-            default:
-                return response()->json(['status' => 'error', 'message' => 'incorrect event']);
-                break;
-        }
+        return EventFactory::build($event, $request);
     }
 }
